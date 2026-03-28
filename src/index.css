@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light theme ── Space-separated RGB channels for Tailwind opacity support */
+:root {
+  --c-primary:                  71 101 80;
+  --c-primary-dim:              60 89 69;
+  --c-on-primary:               226 255 231;
+  --c-primary-container:        201 235 209;
+  --c-on-primary-container:     59 88 68;
+  --c-secondary:                82 99 84;
+  --c-secondary-container:      213 232 212;
+  --c-on-secondary-container:   69 86 71;
+  --c-background:               249 249 246;
+  --c-surface:                  249 249 246;
+  --c-on-surface:               46 52 48;
+  --c-on-surface-variant:       90 97 92;
+  --c-surface-container-lowest: 255 255 255;
+  --c-surface-container-low:    243 244 240;
+  --c-surface-container:        236 239 234;
+  --c-surface-container-high:   229 233 228;
+  --c-surface-container-highest:222 228 222;
+  --c-outline:                  118 124 119;
+  --c-outline-variant:          173 179 174;
+  --c-error:                    159 64 61;
+  --c-tertiary-container:       232 248 233;
+  --c-on-tertiary-container:    81 95 84;
+}
+
+/* ── Dark theme ── */
+.dark {
+  --c-primary:                  122 181 132;
+  --c-primary-dim:              90 148 99;
+  --c-on-primary:               26 51 34;
+  --c-primary-container:        30 58 37;
+  --c-on-primary-container:     168 212 176;
+  --c-secondary:                138 172 140;
+  --c-secondary-container:      42 63 44;
+  --c-on-secondary-container:   168 201 170;
+  --c-background:               18 23 20;
+  --c-surface:                  18 23 20;
+  --c-on-surface:               200 211 201;
+  --c-on-surface-variant:       140 164 144;
+  --c-surface-container-lowest: 14 18 15;
+  --c-surface-container-low:    26 32 25;
+  --c-surface-container:        31 38 30;
+  --c-surface-container-high:   38 46 37;
+  --c-surface-container-highest:45 54 44;
+  --c-outline:                  90 110 92;
+  --c-outline-variant:          61 77 63;
+  --c-error:                    207 102 121;
+  --c-tertiary-container:       26 46 28;
+  --c-on-tertiary-container:    138 184 144;
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: rgb(var(--c-background));
+  color: rgb(var(--c-on-surface));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Subtle dot grid — premium graph-paper texture */
+  background-image: radial-gradient(circle, rgb(var(--c-on-surface) / 0.038) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+/* ── Radial glow blobs — sage green corner accents ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 75% 55% at 92% -5%, rgb(var(--c-primary) / 0.09) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 45% at 3% 102%, rgb(var(--c-primary) / 0.06) 0%, transparent 55%);
+}
+.dark body::before {
+  background:
+    radial-gradient(ellipse 75% 55% at 92% -5%, rgb(var(--c-primary) / 0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 45% at 3% 102%, rgb(var(--c-primary) / 0.10) 0%, transparent 55%);
+}
+
+/* ── Grain texture — paper-like tactility ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.040;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px;
+}
+.dark body::after { opacity: 0.065; }
+
+#root {
+  min-height: 100svh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography ── */
+.font-display { font-family: 'Fraunces', Georgia, serif; }
+
+/* ── Material Icons ── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  user-select: none;
+  vertical-align: middle;
+}
+
+/* ── Inputs ── */
+input[type='text'],
+input[type='number'],
+input[type='date'],
+textarea,
+select {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  opacity: 0.45;
+  cursor: pointer;
+}
+.dark input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--c-outline-variant) / 0.55);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--c-primary) / 0.55); }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.35; transform: scale(0.7); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-5px); }
+}
+
+.animate-fade-up   { animation: fadeUp  0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-scale-in  { animation: scaleIn 0.25s cubic-bezier(0.16,1,0.3,1) forwards; }
+.animate-pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
+.animate-float     { animation: floatUp 3s ease-in-out infinite; }
+
+/* Staggered children */
+.stagger-children > * { opacity: 0; animation: fadeUp 0.4s cubic-bezier(0.16,1,0.3,1) forwards; }
+.stagger-children > *:nth-child(1) { animation-delay: 0.04s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.10s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.16s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.22s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.28s; }
+
+/* Progress shimmer fill */
+.progress-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgb(var(--c-primary-dim)) 0%,
+    rgb(var(--c-primary)) 40%,
+    rgb(var(--c-on-primary-container)) 55%,
+    rgb(var(--c-primary)) 70%,
+    rgb(var(--c-primary-dim)) 100%
+  );
+  background-size: 200% auto;
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+/* ── Focus ring ── */
+*:focus-visible {
+  outline: 2px solid rgb(var(--c-primary) / 0.55);
+  outline-offset: 2px;
+}
